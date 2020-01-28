@@ -3,11 +3,14 @@ package com.example.keith.a2_bundles;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "Lifecycle";
     private static final int DEFAULT_VALUE = 0;
+
+//    String astring = getString(R.string.a_string);
 
     private int valueThatMustSurviveDestruction = DEFAULT_VALUE;
     private static final String VTMSD_NAME = "valueThatMustSurviveDestruction";
@@ -20,19 +23,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tv_vtmbs = (TextView)findViewById(R.id.tv_vtmbs);
-
-        Log.d(TAG, "in onCreate, i=" + Integer.toString(valueThatMustSurviveDestruction));
+        Log.d(TAG, "before check bundle onCreate, i=" + Integer.toString(valueThatMustSurviveDestruction));
 
         // Check whether we're recreating a previously destroyed instance
         if (savedInstanceState != null) {
             // Restore value of members from saved state
             valueThatMustSurviveDestruction = savedInstanceState.getInt(VTMSD_NAME);
+            Log.d(TAG, "there was ating VTMSD, i=" + Integer.toString(valueThatMustSurviveDestruction));
         }
-        Log.d(TAG, "in onCreate, i=" + Integer.toString(valueThatMustSurviveDestruction));
+
 
         //increment default value
         valueThatMustSurviveDestruction++;
         tv_vtmbs.setText(Integer.toString(valueThatMustSurviveDestruction));
+    }
+
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart: ");
     }
 
     /**
@@ -55,4 +66,6 @@ public class MainActivity extends AppCompatActivity {
         tv_vtmbs.setText(Integer.toString(valueThatMustSurviveDestruction));
     }
 
+    public void doClick(View view) {
+    }
 }
